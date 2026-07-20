@@ -50,6 +50,7 @@ const Menu = ({ dense = false }: MenuProps) => {
                 'RaMenu-open': open,
                 'RaMenu-closed': !open,
             })}
+            data-testid="sidebar-menu"
         >
             <DashboardMenuItem />
             <SubMenu
