@@ -15,7 +15,7 @@ export class LoginPage extends BasePage {
     }
 
     async navigate() {
-        await this.page.goto('/#/login');
+        await this.page.goto('/#/login', {timeout: 25000, waitUntil: 'load'});
     }
 
     async login(username: string = process.env.ADMIN_DEMO_USERNAME, password: string = process.env.ADMIN_DEMO_PASSWORD) {
