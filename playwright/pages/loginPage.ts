@@ -18,7 +18,7 @@ export class LoginPage extends BasePage {
         await this.page.goto('/#/login');
     }
 
-    async login(username: string, password: string) {
+    async login(username: string = process.env.ADMIN_DEMO_USERNAME, password: string = process.env.ADMIN_DEMO_PASSWORD) {
         await this.usernameField.fill(username)
         await this.passwordField.fill(password)
         /** Using press('Enter') instead of click() to bypass
