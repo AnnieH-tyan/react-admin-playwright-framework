@@ -36,6 +36,9 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         working-directory: ./playwright
+        env:
+          ADMIN_DEMO_USERNAME: ${{ secrets.ADMIN_DEMO_USERNAME }}
+          ADMIN_DEMO_PASSWORD: ${{ secrets.ADMIN_DEMO_PASSWORD }}
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
