@@ -1,0 +1,49 @@
+name: Playwright tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Install playwright dependencies
+        run: yarn install
+        working-directory: ./playwright
+
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+        working-directory: ./playwright
+
+      - name: Start React Admin Application
+        run: yarn run-demo &
+
+      - name: Wait for application server
+        run: npx wait-on http://localhost:8000 --timeout 60000
+
+      - name: Run Playwright tests
+        run: npx playwright test
+        working-directory: ./playwright
+        env:
+          ADMIN_DEMO_USERNAME: ${{ secrets.ADMIN_DEMO_USERNAME }}
+          ADMIN_DEMO_PASSWORD: ${{ secrets.ADMIN_DEMO_PASSWORD }}
+
+#      - uses: actions/upload-artifact@v4
+#        if: ${{ !cancelled() }}
+#        with:
+#          name: playwright-report
+#          path: playwright/playwright-report/
+#          retention-days: 30
