@@ -20,6 +20,10 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Install playwright dependencies
+        run: yarn install
+        working-directory: ./playwright
+
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
         working-directory: ./playwright
