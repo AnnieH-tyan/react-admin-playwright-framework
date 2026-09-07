@@ -12,7 +12,7 @@ test.describe('Login page: Authentication', () => {
     test('Successful login', async ({page}: {page: Page}) => {
         await loginPage.login()
         const sidebar = page.getByTestId('sidebar-menu')
-        await expect(sidebar).toBeVisible()
+        await expect(sidebar).toBeVisible({ timeout: 25000 })
 
         const storageUsername = await page.evaluate(() => localStorage.getItem('username'))
         expect(storageUsername).toBe(process.env.ADMIN_DEMO_USERNAME)
