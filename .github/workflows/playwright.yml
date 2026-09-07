@@ -30,8 +30,9 @@ jobs:
 
       - name: Start React Admin Application
         run: yarn run-demo &
+
       - name: Wait for application server
-        run: sleep 40
+        run: npx wait-on http://localhost:8000 --timeout 60000
 
       - name: Run Playwright tests
         run: npx playwright test
