@@ -31,7 +31,7 @@ jobs:
       - name: Start React Admin Application
         run: yarn run-demo &
       - name: Wait for application server
-        run: sleep 5
+        run: sleep 40
 
       - name: Run Playwright tests
         run: npx playwright test
