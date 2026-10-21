@@ -1,18 +1,21 @@
 import { test, expect, Page } from '@playwright/test'
-import {LoginPage} from "../pages/loginPage";
+import {LoginPage} from "../pages/loginPage"
+import {DashboardPage} from "../pages/dashboardPage"
 
 test.describe('Login page: Authentication', () => {
     let loginPage: LoginPage
+    let dashboardPage: DashboardPage
 
-    test.beforeEach(async ({page}: {page: Page}) => {
+    test.beforeEach(async ({page}) => {
         loginPage = new LoginPage(page)
         await loginPage.navigate()
     })
 
-    test('Successful login', async ({page}: {page: Page}) => {
+    test('Successful login', async ({page}) => {
+        dashboardPage = new DashboardPage(page)
+
         await loginPage.login()
-        const sidebar = page.getByTestId('sidebar-menu')
-        await expect(sidebar).toBeVisible()
+        await expect(dashboardPage.sidebar).toBeVisible()
 
         const storageUsername = await page.evaluate(() => localStorage.getItem('username'))
         expect(storageUsername).toBe(process.env.ADMIN_DEMO_USERNAME)
